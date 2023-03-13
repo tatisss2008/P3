@@ -1,4 +1,6 @@
 
+var botones =["7","8","9","+","4","5","6","-","1","2","3","*","0",".","=","/"]
+
 function renderizarGUI()
 {
 
@@ -33,7 +35,48 @@ function renderizarGUI()
     divBotones.setAttribute("id", "botones");
     divCalculadora.appendChild(divBotones);
 
+    for(let i=0; i<botones.length; i++)
+    {
+        //crear fila
+        if (i%4==0)
+        {
+            const divFila = document.createElement("div");
+            divFila.setAttribute("class","row");
+            divBotones.appendChild(divFila);
+        }
 
+        let boton =document.createElement("button");
+        boton.setAttribute("id","boton"+botones[i]);
+        boton.setAttribute("class","btn btn-primary col-3 border-white");
+        boton.innerHTML=botones[i];
+
+        //Agregar un "escuchador de eventos"
+        boton.addEventListener("click", function(){
+            procesarEvento(boton);
+        })
+
+        divBotones.lastChild.appendChild(boton);
+
+    }
+
+}
+
+function procesarEvento(boton){
+
+    let miPantalla= document.getElementById("pantalla");
+    if(miPantalla.value=="0")
+    {
+        miPantalla.value="";
+    }
+    if (boton.innerHTML != "=")
+    {
+        miPantalla.value+=boton.innerHTML;
+    }else{
+        //Evaluar la expresion con Math.js
+        let resultado = math.evaluate(miPantalla.value);
+        miPantalla.value=resultado;
+    }
+    //console.log(boton.innerHTML);
 }
 
 renderizarGUI();
