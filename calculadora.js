@@ -11,7 +11,7 @@ function renderizarGUI()
     //2. Agregar atributos (opcional)
     divCalculadora.setAttribute("id", "calculadora");
     divCalculadora.setAttribute("class","text-center");
-    divCalculadora.setAttribute("style","width:50%; margin:0 auto");
+    divCalculadora.setAttribute("style","width:40%; margin:0 auto");
 
     //3. Insertar el elemento en el DOM
     document.body.appendChild(divCalculadora);
@@ -59,6 +59,17 @@ function renderizarGUI()
 
     }
 
+    let botonReset =document.createElement("button");
+    botonReset.setAttribute("id","botonReset");
+    botonReset.setAttribute("class","btn btn-primary col-3 border-white");
+    botonReset.innerHTML = "Reset";
+    divCalculadora.appendChild(botonReset);
+
+    //Agregar un "escuchador de eventos"
+    botonReset.addEventListener("click", function(){
+        procesarEventoReset(botonReset);
+    })
+
 }
 
 function procesarEvento(boton){
@@ -77,6 +88,11 @@ function procesarEvento(boton){
         miPantalla.value=resultado;
     }
     //console.log(boton.innerHTML);
+}
+
+function procesarEventoReset(botonReset){
+    let miPantalla= document.getElementById("pantalla");
+    miPantalla.value="0";
 }
 
 renderizarGUI();
